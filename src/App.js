@@ -32,6 +32,8 @@ function App() {
     .catch((error) => { console.log(error.respsonse)});
   }
 
+  console.log("Test");
+
   return (
     <div>
       <Container>
