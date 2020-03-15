@@ -15,13 +15,14 @@ function App() {
   const [newToday, setNewToday] = useState();
 
   const REQUEST_URL = 'https://redutv-api.vg.no/corona/v1/sheets/norway-table-overview/?region=municipality';
+  const URL_ADDRESS = 'https://redutv-api.vg.no/sports/corona-viruset/norway-table-overview?region=municipality';
 
   useEffect(() => {
     getCoronaCases();
   }, [])
   
   const getCoronaCases = async() => {
-    return await axios.get(REQUEST_URL)
+    return await axios.get(URL_ADDRESS)
     .then(response => { 
       const data = response.data.totals;
       setConfirmed(data.confirmed)
