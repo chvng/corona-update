@@ -9,69 +9,84 @@ import {
 import './App.css';
 
 function App() {
-  const [confirmed, setConfirmed] = useState();
-  const [dead, setDead] = useState();
-  const [recovered, setRecovered] = useState();
-  const [newToday, setNewToday] = useState();
+  const [confirmed, setConfirmed] = useState(),
+        [recovered, setRecovered] = useState(),
+        [dead, setDead] = useState(),
+        [infectedToday, setInfectedToday] = useState(),
+        [infectedYesterday, setInfectedYesterday] = useState();
 
-  const REQUEST_URL = 'https://redutv-api.vg.no/corona/v1/sheets/norway-table-overview/?region=municipality';
   const URL_ADDRESS = 'https://redutv-api.vg.no/sports/corona-viruset/norway-table-overview?region=municipality';
+  const API_ADDRESS = 'https://www.vg.no/spesial/2020/corona-viruset/data/norway-region-data/';
+
+  const getCoronaCases = async() => {
+    return await axios.get(URL_ADDRESS)
+    .then(response => {
+      const {confirmed, recovered} = response.data.totals;
+      const {newToday, newYesterday} = response.data.totals.changes;
+
+      setConfirmed(confirmed);
+      setRecovered(recovered);
+      setInfectedToday(newToday);
+      setInfectedYesterday(newYesterday);
+    })
+    .catch((error) => console.log(error));
+  }
+
+  const getOtherData = async() => {
+    return await axios.get(API_ADDRESS)
+    .then(response => {
+      const {dead} = response.data.metadata;
+
+      setDead(dead.total);
+    })
+    .catch((error) => console.log(error));
+  }
 
   useEffect(() => {
     getCoronaCases();
-  }, [])
-  
-  const getCoronaCases = async() => {
-    return await axios.get(URL_ADDRESS)
-    .then(response => { 
-      const data = response.data.totals;
-      setConfirmed(data.confirmed)
-      setDead(data.dead);
-      setRecovered(data.recovered);
-      setNewToday(data.changes.newToday);
-    })
-    .catch((error) => { console.log(error.respsonse)});
-  }
-
-  console.log("Test");
+    getOtherData();
+  }, []);
 
   return (
-    <div>
-      <Container>
+    <Container style={{ textAlign: 'center' }}>
+      <h1>COVID-19 NORWAY</h1>
+      <Grid
+        container spacing={4}
+      >
         <Grid
-          container spacing={4}
+          item xs={12}
         >
-          <Grid
-            item xs={3}
-          >
-            <Card>
-              Confirmed: {confirmed}
-            </Card>
-          </Grid>
-          <Grid
-            item xs={3}
-          >
-            <Card>
-              Dead: {dead}
-            </Card>
-          </Grid>
-          <Grid
-            item xs={3}
-          >
-            <Card>
-              Recovered: {recovered}
-            </Card>
-          </Grid>
-          <Grid
-            item xs={3}
-          >
-            <Card>
-              New today: {newToday}
-            </Card>
-          </Grid>
+          <Card>
+            <h3>{confirmed}</h3>
+            <h5>Been tested and confirmed</h5>
+          </Card>
         </Grid>
-      </Container>
-    </div>
+        <Grid
+          item xs={12}
+        >
+          <Card>
+            <h3>{dead}</h3>
+            <h5>Dead in total</h5>
+          </Card>
+        </Grid>
+        <Grid
+          item xs={12}
+        >
+          <Card>
+            <h3>{recovered}</h3>
+            <h5>Recovered in total</h5>
+          </Card>
+        </Grid>
+        <Grid
+          item xs={12}
+        >
+          <Card>
+            <h3>{infectedToday}</h3>
+            <h5>New infected and confirmed cases today</h5>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
