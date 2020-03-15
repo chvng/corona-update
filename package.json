@@ -35,6 +35,8 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/core": "^4.9.5",
+    "axios": "^0.19.2",
     "gh-pages": "^2.2.0"
   }
 }
