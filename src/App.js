@@ -105,9 +105,9 @@ function App() {
         [world, setWorld] = useState([]);
 
   const URL_ADDRESS = 'https://www.vg.no/spesial/2020/corona-viruset/data/norway-region-data/';
-  const URL_HOSPITALIZED = 'https://redutv-api.vg.no/corona/v1/hospitalized';
-  const URL_TESTED = 'https://redutv-api.vg.no/corona/v1/sheets/fhi/tested';
-  const URL_WORLD = 'https://redutv-api.vg.no/corona/v1/sheets/world/reports';
+  const URL_HOSPITALIZED = 'https://www.vg.no/corona/v1/hospitalized';
+  const URL_TESTED = 'https://www.vg.no/corona/v1/sheets/fhi/tested';
+  const URL_WORLD = 'https://www.vg.no/corona/v1/sheets/world/reports';
 
   const getCoronaCases = async() => {
     return await axios.get(URL_ADDRESS)
