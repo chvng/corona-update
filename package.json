@@ -1,6 +1,6 @@
 {
-  "homepage": "https://chvng.github.io/corona-update",
-  "name": "corona-update",
+  "homepage": "https://chvng.github.io/covid-19",
+  "name": "covid-19",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
