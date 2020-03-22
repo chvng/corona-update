@@ -17,7 +17,9 @@ import Typography from '@material-ui/core/Typography';
 
 import './App.css';
 
-const RenderSingleCard = ({title, children, string}) => {
+const RenderSingleCard = (props) => {
+  const { title, children, string } = props;
+
   return (
     <Card className="covid-card">
       <CardContent>
@@ -37,7 +39,7 @@ const RenderSingleCard = ({title, children, string}) => {
               className="covid-card-text covid-card--red"
             >
               {string}
-    </Typography>
+            </Typography>
           </div>
         </div>
       </CardContent>
@@ -45,7 +47,9 @@ const RenderSingleCard = ({title, children, string}) => {
   )
 }
 
-const RenderMultiCard = ({title, firstValue, firstString, secondValue, secondString}) => {
+const RenderMultiCard = (props) => {
+  const { title, firstValue, firstString, secondValue, secondString } = props;
+  
   return (
     <Card className="covid-card">
       <CardContent>
@@ -220,7 +224,7 @@ function App() {
           </Grid>
           <Grid item xs={12} md={3}>
             <RenderMultiCard
-              title="Dead"
+              title="Deaths"
               firstValue={deadToday}
               firstString="NEW TODAY"
               secondValue={dead}
